@@ -10,17 +10,23 @@ import org.spoutcraft.spoutcraftapi.io.SpoutInputStream;
 import org.spoutcraft.spoutcraftapi.io.SpoutOutputStream;
 
 public class PacketOpenBrowser extends AddonPacket {
+	private String url;
 
+	@Override
 	public void read(SpoutInputStream in) {
-
+		this.url = inputStream.readString();
+		if(this.url == null) {
+			this.url = "null";
+		}
 	}
 
+	@Override
 	public void run() {
 		if (Desktop.isDesktopSupported()) {
 	        Desktop desktop = Desktop.getDesktop();
 	        if (desktop.isSupported(Desktop.Action.BROWSE)) {
 	            try {
-	                desktop.browse(new URI("http://google.com")); // URL sent by packet here
+	                desktop.browse(new URI(this.url));
 	            }
 	            catch(IOException ioe) {
 	                ioe.printStackTrace();
@@ -32,8 +38,9 @@ public class PacketOpenBrowser extends AddonPacket {
 	    }
 	}
 
+	@Override
 	public void write(SpoutOutputStream out) {
-		
+		ouputStream.writeString("PacketOpenBrowser");
 	}
 
 }
