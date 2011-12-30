@@ -9,7 +9,7 @@ import org.spoutcraft.spoutcraftapi.io.AddonPacket;
 public class BuycraftClient extends JavaAddon {
 	
 	public void onEnable() {
-		AddonPacket.register(PacketPlayerSafe.class, "BuycraftServer");
+		AddonPacket.register(PacketOpenBrowser.class, "BuycraftClient");
 		Spoutcraft.getLogger().log(Level.INFO, "Buycraft Client enabled!");
 	}
 	
