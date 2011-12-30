@@ -14,7 +14,8 @@ public class PacketOpenBrowser extends AddonPacket {
 
 	@Override
 	public void read(SpoutInputStream in) {
-		this.url = inputStream.readString();
+		// Read data in
+		this.url = in.readString();
 		if(this.url == null) {
 			this.url = "null";
 		}
@@ -22,6 +23,7 @@ public class PacketOpenBrowser extends AddonPacket {
 
 	@Override
 	public void run() {
+		// When we get something, do browse
 		if (Desktop.isDesktopSupported()) {
 	        Desktop desktop = Desktop.getDesktop();
 	        if (desktop.isSupported(Desktop.Action.BROWSE)) {
@@ -40,7 +42,8 @@ public class PacketOpenBrowser extends AddonPacket {
 
 	@Override
 	public void write(SpoutOutputStream out) {
-		ouputStream.writeString("PacketOpenBrowser");
+		// Send them nothing really, perhaps a version?
+		out.writeString("PacketOpenBrowser");
 	}
 
 }
